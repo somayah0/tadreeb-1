@@ -1,0 +1,114 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style_form.css">
+
+        <title>sign up</title>
+       
+        <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+      <body>
+        <div class="topnav">
+           <img src="logo.png" alt="Simply Easy Learning" width="120" height="outo" align="center" >
+
+            <a href="#">دخول</a>
+            <a href="sign_up_trainess.html">تسجيل متدربين</a>
+            <a href="prosend.html">تسجل مقدم ورش عمل</a>
+          </div>
+          <div class="content">       
+<span id="result"></span>
+
+<form method="post"  action="trainees.php" name="sform" action="checkpage.php">
+
+  <div class="form-style-10">
+    <h1>تسجيل متدرب جديد<span> ارجوا كتابة الأسم بشكل صحيح كما تريد أن يظهر في الشهادة</span></h1>
+    <form>
+        <div class="section"><span>1</span> الأسم الثلاثي  والبريد الإلكتروني</div>
+        <div class="inner-wrap">
+           
+    
+			<label> الأسم الثلاثي <input type="text" name="fullname" placeholder="أدخل أسمك الثلاثي" 
+				id = "fname" required /></label>
+				<!--<label><input type= "text" name="fullname" ></label><label><input type= "text" name="fullname" ></label>-->
+			
+
+				<label>البريد الالكتروني <input type="email" name="email"  placeholder="أدخل البريد الالكتروني " 
+					id = "email" onBlur="checkAvailability_email()"   onfocus="this.value=''"required /></label>
+					<span id="E-user-Availability-status"></span>
+        </div>
+    
+        <div class="section"><span>2</span> أسم المستخدم و كلمة المرور</div>
+        <div class="inner-wrap">
+			<label>أسم المستخدم <input type="text" name="username" placeholder="أدخل أسم المستخدم " 
+				id = "uname"  onBlur="checkAvailability()" onfocus="this.value=''"
+				title ="أسم المستخدم يجب أن يكون باللغة الإنجليزية،الرموزالمسموح بها : ـ ."  required /></label>
+				<span id="user-Availability-status"></span>
+				
+				<label>كلمة المرور <input type="password" name="password" placeholder="أدخل كلمة المرور"  required /></label>
+			<label>تأكيد كلمة المرور <input type="password" name="password2"  placeholder="أدخل  تأكيد كلمة المرور" validation /></label>
+			<span id="confirm_psw"></span>
+          
+        </div>
+    
+        <div class="button-section">
+         <input type="submit" name="sign" placeholder="تسجيل"/>
+         <!--<span class="privacy-policy">
+         <input type="checkbox" name="field7">You agree to our Terms and Policy. 
+         </span>-->
+        </div>
+    </form>
+	</div>
+	
+	<script type ="text/javascript">
+	var password =document.forms["sform"]["password"];
+	var password_confi =document.forms["sform"]["password2"];
+	var psw= document.getElementById("password").value;
+
+	function validate()
+	{
+		if(password.value != password_confi.value)
+		{
+			document.getElementById('password2').innerHTML='كلمة المرور غير متطابقة';
+			password.focus();
+			return false;
+		}
+	}
+
+	function checkAvailability()
+	{
+		jQuery.ajax({
+			url:"trainees.php",
+			data:'uname='+$("#uname").var(),
+			type:"POST",
+			success:function(data){$("#user-Availability-status").html(data);},
+			error:function(){}
+		});
+
+
+	}
+
+	function checkAvailability_email()
+	{
+		jQuery.ajax({
+			url:"trainees.php",
+			data:'email='+$("#email").var(),
+			type:"POST",
+			success:function(data){$("#E-user-Availability-status").html(data);},
+			error:function(){}
+		});
+
+	}
+
+	</script>
+
+<div class="footer"> <p>تفاصيل التواصل  </p></div>
+  </body>
+  </html>
